@@ -1,0 +1,13 @@
+org.zhu4:
+  redis:
+    hostName: redis
+    port: 6379
+  rate-limiter:
+    cache:
+      type: redisson
+      expireAfterMillis: 20000
+    configs:
+      default:
+        maximumRequests: 10
+        intervalInMillis: 3000
+        algorithm: sliding-window

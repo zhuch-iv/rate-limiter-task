@@ -1,0 +1,14 @@
+org.zhu4:
+  rate-limiter:
+    cache:
+      type: caffeine
+      expireAfterMillis: 20000
+    configs:
+      greet:
+        maximumRequests: 10
+        intervalInMillis: 10000
+        algorithm: sliding-window
+      default:
+        maximumRequests: 10
+        intervalInMillis: 10000
+        algorithm: fixed-window
