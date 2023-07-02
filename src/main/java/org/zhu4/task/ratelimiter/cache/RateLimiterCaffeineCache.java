@@ -9,7 +9,7 @@ public class RateLimiterCaffeineCache implements RateLimiterCache {
     private final LoadingCache<String, AtomicLong> cache;
 
     public RateLimiterCaffeineCache(final Caffeine<Object, Object> caffeine) {
-        cache = Caffeine.newBuilder()
+        cache = caffeine
                 .build(key -> new AtomicLong(0));
     }
 
