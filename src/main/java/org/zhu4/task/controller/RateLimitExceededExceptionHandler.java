@@ -11,7 +11,7 @@ public class RateLimitExceededExceptionHandler {
 
     @ExceptionHandler(RateLimitExceededException.class)
     public ResponseEntity<ErrorResponse> handleRateLimitExceededException() {
-        return ResponseEntity.status(HttpStatusCode.valueOf(502)) // TODO: 429
+        return ResponseEntity.status(HttpStatusCode.valueOf(502))
                 .body(new ErrorResponse("Bad Gateway", "502", "You have exceeded your quota"));
     }
 }

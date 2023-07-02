@@ -22,7 +22,9 @@ public class RateLimiterRedissonCache implements RateLimiterCache {
 
     @Override
     public boolean compareAndSet(final String key, final long expected, final long update) {
-        return client.getAtomicLong(key).compareAndSet(expected, update);
+        final var counter = client.getAtomicLong(key);
+        counter.expire(Duration.of(expireAfterMillis, ChronoUnit.MILLIS));
+        return counter.compareAndSet(expected, update);
     }
 
     @Override

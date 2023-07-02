@@ -23,7 +23,7 @@ public class RateLimiterRegistry {
         this.properties = properties;
     }
 
-    public RateLimiter getRateLimiter(String name) {
+    public RateLimiter getRateLimiter(final String name) {
         if (entryMap.containsKey(name)) {
             return entryMap.get(name);
         } else {
@@ -33,7 +33,7 @@ public class RateLimiterRegistry {
         }
     }
 
-    private RateLimiter createRateLimiter(String name) {
+    private RateLimiter createRateLimiter(final String name) {
         final var defaultConfig = properties.configs().get("default");
         final var config = properties.configs().getOrDefault(name, defaultConfig);
         final var intervalInMillis =
