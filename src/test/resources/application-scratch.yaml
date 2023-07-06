@@ -1,0 +1,14 @@
+org.zhu4:
+  rate-limiter:
+    cache:
+      type: fromScratch
+      expireAfterMillis: 200000
+    configs:
+      greet:
+        maximumRequests: 20
+        intervalInMillis: 6000
+        algorithm: sliding-window
+      default:
+        maximumRequests: 10
+        intervalInMillis: 3000
+        algorithm: fixed-window

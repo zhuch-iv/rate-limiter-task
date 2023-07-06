@@ -9,13 +9,16 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.zhu4.task.ratelimiter.cache.RateLimiterCache;
 import org.zhu4.task.ratelimiter.cache.RateLimiterCaffeineCache;
+import org.zhu4.task.ratelimiter.cache.RateLimiterFromScratchCache;
 import org.zhu4.task.ratelimiter.cache.RateLimiterRedissonCache;
 
 import java.util.concurrent.TimeUnit;
 
 @Configuration
+@EnableScheduling
 public class RateLimiterCacheConfiguration {
 
     @Bean
@@ -54,5 +57,12 @@ public class RateLimiterCacheConfiguration {
             RedissonClient redissonClient
     ) {
         return new RateLimiterRedissonCache(redissonClient, properties.cache().expireAfterMillis());
+    }
+
+    @Bean
+    @Primary
+    @ConditionalOnProperty(prefix = "org.zhu4.rate-limiter.cache", name = "type", havingValue = "fromScratch")
+    public RateLimiterCache fromScratchCache(RateLimiterConfigurationProperties properties) {
+        return new RateLimiterFromScratchCache(properties.cache().expireAfterMillis());
     }
 }

@@ -48,7 +48,7 @@ public record RateLimiterConfigurationProperties(
 
     public enum RateLimiterCacheType {
 
-        CAFFEINE("caffeine"), REDISSON("redisson");
+        CAFFEINE("caffeine"), REDISSON("redisson"), FROM_SCRATCH("fromScratch");
 
         private final String name;
 
